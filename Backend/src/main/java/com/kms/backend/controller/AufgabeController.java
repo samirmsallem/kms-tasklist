@@ -11,50 +11,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
+@RequestMapping("/api/v1/aufgabe")
+@CrossOrigin(origins = "*")
 public class AufgabeController {
 
     @Autowired
     AufgabeService aufgabeService;
 
-    @RestController
-    @RequestMapping("/api/v1")
-    @CrossOrigin(origins = "*")
-    public class StudentController {
+    //get all Aufgabe
+    @GetMapping("")
+    public List<Aufgabe> getAllAufgaben() {
+        return aufgabeService.getAllAufgabe();
+    }
 
-        //get all Aufgabe
-        @GetMapping("/aufgabe")
-        public List<Aufgabe> getAllStudent(){
-            return aufgabeService.getAllAufgabe();
-        }
+    //create Aufgabe rest api
+    @PostMapping("")
+    public Aufgabe createAufgabe(@RequestBody Aufgabe aufgabe) {
+        return aufgabeService.saveAufgabe(aufgabe);
+    }
 
-        //create Aufgabe rest api
-        @PostMapping("/aufgabe")
-        public Aufgabe createAufgabe(@RequestBody Aufgabe aufgabe){
-            return aufgabeService.saveAufgabe(aufgabe);
-        }
+    //get Aufgabe by id rest api
+    @GetMapping("/{id}")
+    public ResponseEntity<Aufgabe> getAufgabeById(@PathVariable Long id) {
+        return ResponseEntity.ok(aufgabeService.getAufgabe(id));
+    }
 
-        //get Aufgabe by id rest api
-        @GetMapping("/aufgabe/{id}")
-        public ResponseEntity<Aufgabe> getSAufgabeById(@PathVariable Long id){
-            return ResponseEntity.ok(aufgabeService.getAufgabe(id));
-        }
+    //update aufgabe
+    @PutMapping("/{id}")
+    public ResponseEntity<Aufgabe> updateAufgabe(@PathVariable Long id, @RequestBody Aufgabe aufgabe) {
+        return ResponseEntity.ok(aufgabeService.updateProduit(aufgabe, id));
+    }
 
-        //update aufgabe
-        @PutMapping("/aufgabe/{id}")
-        public ResponseEntity<Aufgabe> updateAufgabe(@PathVariable Long id , @RequestBody Aufgabe aufgabe){
-            return ResponseEntity.ok(aufgabeService.updateProduit(aufgabe,id));
-        }
-
-        //delete Aufgabe rest api
-        @DeleteMapping("/aufgabe/{id}")
-        public ResponseEntity<Map> deleteAufgabeId(@PathVariable Long id){
-            aufgabeService.deleteAufgabeById(id);
-            Map<String,Boolean> response=new HashMap<>();
-            response.put("deleted",Boolean.TRUE);
-            return ResponseEntity.ok(response);
-
-        }
+    //delete Aufgabe rest api
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map> deleteAufgabeById(@PathVariable Long id) {
+        aufgabeService.deleteAufgabeById(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
 
     }
 }
