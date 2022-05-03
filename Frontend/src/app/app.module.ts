@@ -7,6 +7,7 @@ import { ListComponent } from './list/list.component';
 import {RouterModule, Routes} from "@angular/router";
 import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component';
 import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 const appRoutes: Routes = [
   {
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     NgbModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule
   ],
@@ -35,4 +37,6 @@ const appRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
+
+export class AppModule { }
 
