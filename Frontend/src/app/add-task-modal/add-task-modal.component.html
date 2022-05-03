@@ -10,6 +10,14 @@
         <input id="taskTitleInput" type="text" class="form-control" name="taskTitleInput" [(ngModel)]="title" >
       </div>
     </div>
+    <div class="mb-3">
+       <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn btn-outline-primary" id="changeCategory" ngbDropdownToggle>{{Category}}</button>
+        <div ngbDropdownMenu aria-labelledby="changeCategory" >
+          <button ngbDropdownItem *ngFor="let cat of CategoryList | keyvalue" (click)="setCategory(cat.value)">{{cat.value}}</button>
+        </div>
+      </div>
+    </div>
   </form>
 </div>
 <div class="modal-footer">
