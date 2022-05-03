@@ -1,9 +1,9 @@
 <div class="container">
   <h2 class = "text-center">Aufgabenboard</h2>
-  <button class="btn btn-outline-primary" (click)="dataService.add()">Aufgabe hinzufügen</button>
+  <button class="btn btn-outline-primary" (click)="this.dataService.openAddModal()">Aufgabe hinzufügen</button>
   <div class="card-group">
     <div *ngFor="let task of dataService.taskList; let i = index">
-      <div class="card m-2 shadow p-3 mb-5" style="width: 18rem; border-box:black;">
+      <div class="card m-2 shadow p-3 mb-5" style="width: 18rem">
         <div class="card-body">
           <h5 class="card-title">{{task.title}}</h5>
           <h5><span class="badge bg-primary rounded-pill">erstellt {{task.creationDate.toLocaleDateString()}}</span></h5>
