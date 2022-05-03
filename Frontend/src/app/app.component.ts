@@ -17,14 +17,14 @@ export class AppComponent {
 
   ngOnInit(): void {
 
-    console.log("hallo")
+   /* console.log("hallo")
     console.log(this.aufgabeservice.getAufgabeList().toPromise().then((res: any) =>{
         console.log(res);
       })
     )
 
 
-      console.log((this.aufgabeservice.deleteAufgabe(5).toPromise().then((res: any) =>{
+     console.log((this.aufgabeservice.deleteAufgabe(5).toPromise().then((res: any) =>{
         console.log(res);
       })))
 
@@ -34,7 +34,7 @@ export class AppComponent {
 
     console.log((this.aufgabeservice.updateAufgabe(7,this.testcreate).toPromise().then((res: any) =>{
       console.log(res)
-    })))
+    })))*/
 
   }
 

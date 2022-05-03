@@ -14,9 +14,6 @@ export class AufgabeService {
   constructor( private http:HttpClient) {
   }
 
-  getAufgabe() {
-    return  this.http.get("http://localhost:8080/api/v1/aufgabe");
-  }
   getAufgabeList(): Observable<Aufgabe[]>{
 
     return this.http.get<Aufgabe[]>(`${this.baseUrl}`);
