@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { TaskEntry } from "./task";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AddTaskModalComponent} from "src/app/add-task-modal/add-task-modal.component";
+import {Priority} from "./priority";
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +34,19 @@ export class DataService {
   }
 
   done(task: TaskEntry){
-    const index = this.taskList.findIndex(correctTask => correctTask === task);
-    this.taskList[index].done = true;
+    this.taskList[this.getIndex(task)].done = true;
   }
 
   undone(task: TaskEntry){
-    const index = this.taskList.findIndex(correctTask => correctTask === task);
-    this.taskList[index].done = false;
+    this.taskList[this.getIndex(task)].done = false;
+  }
+
+  setPriority(task: TaskEntry, priority: Priority){
+    this.taskList[this.getIndex(task)].priority = priority;
+  }
+
+  getIndex(task: TaskEntry){
+    return this.taskList.findIndex(correctTask => correctTask === task);
   }
 
 

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from "../data.service";
+import {Priority} from "../priority";
 
 @Component({
   selector: 'app-list',
@@ -8,7 +9,9 @@ import {DataService} from "../data.service";
 })
 export class ListComponent implements OnInit {
 
-  constructor(public dataService: DataService) { }
+  public listOfPriorities: Priority[] = [Priority.NORMAL, Priority.HIGH, Priority.LOW];
+  constructor(public dataService: DataService) {
+  }
 
   ngOnInit(): void {
   }
