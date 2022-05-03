@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { TaskEntry } from "./task";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AddTaskModalComponent} from "src/app/add-task-modal/add-task-modal.component";
+import { UpdateComponent } from './update/update.component';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,19 @@ export class DataService {
     }
   }
 
+  async openUpdateModal(){
+    const modal = this.modalService.open(UpdateComponent);
+    try {
+      const result: string = await modal.result;
+      await this.update(result);
+    } catch (e) {
+      console.log('Windows closed: ' + e);
+    }
+  }
+  update(title:string) {
+    
+  }
+
   add(title: string) {
     this.taskList.push(new TaskEntry(title));
   }
@@ -42,5 +56,5 @@ export class DataService {
     this.taskList[index].done = false;
   }
 
-
+  
 }

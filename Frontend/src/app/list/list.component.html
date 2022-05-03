@@ -9,6 +9,7 @@
           <h5><span class="badge bg-primary rounded-pill">erstellt {{task.creationDate.toLocaleDateString()}}</span></h5>
           <button [hidden]="task.done" class="btn btn-outline-success" (click)="dataService.done(task)">Fertig</button>
           <button [hidden]="!task.done" class="btn btn-outline-danger" (click)="dataService.undone(task)">Nicht fertig</button>
+          <button class="btn btn-outline-primary" (click)="this.dataService.openUpdateModal()">Aufgabe bearbeiten</button>
         </div>
       </div>
     </div>
