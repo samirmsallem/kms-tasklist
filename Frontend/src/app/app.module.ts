@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListComponent } from './list/list.component';
 import {RouterModule, Routes} from "@angular/router";
+import { BearbeitenComponent } from './bearbeiten/bearbeiten.component';
 
 const appRoutes: Routes = [
   {
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     ListComponent,
+    BearbeitenComponent,
   ],
   imports: [
     BrowserModule,
