@@ -20,7 +20,7 @@ export class DataService {
   }
 
   async openAddModal(){
-  const modal = this.modalService.open(AddTaskModalComponent);
+  const modal = this.modalService.open(AddTaskModalComponent, { size: 'lg' });
     try {
       const result: string = await modal.result;
       await this.add(result);

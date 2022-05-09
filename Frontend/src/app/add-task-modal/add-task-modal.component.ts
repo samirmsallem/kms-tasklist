@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {DataService} from "src/app/data.service";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
@@ -7,7 +7,7 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
   templateUrl: './add-task-modal.component.html',
   styleUrls: ['./add-task-modal.component.css']
 })
-export class AddTaskModalComponent implements OnInit {
+export class AddTaskModalComponent {
 
   title: string;
 
@@ -15,8 +15,7 @@ export class AddTaskModalComponent implements OnInit {
     this.title = '';
   }
 
-  ngOnInit(): void {
-  }
+
 
   save() {
     if (this.title.trim().length > 0) {
