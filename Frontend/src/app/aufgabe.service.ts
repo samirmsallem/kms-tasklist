@@ -7,7 +7,7 @@ import {Aufgabe} from "./aufgabe";
   providedIn: 'root'
 })
 export class AufgabeService {
-  public aufgabeList = new BehaviorSubject<any>([]);
+
   private refreshrequire = new Subject<void>();
   private baseUrl = "http://localhost:8080/api/v1/aufgabe/";
 
@@ -29,6 +29,7 @@ export class AufgabeService {
 
     return this.http.put(`${this.baseUrl}${id}`,aufgabe);
   }
+
   createAufgabe(aufgabe:Aufgabe):Observable<Object>{
 
     return this.http.post(`${this.baseUrl}`, aufgabe).pipe(
@@ -39,11 +40,12 @@ export class AufgabeService {
 
   }
   deleteAufgabe(id: number):Observable<Object>{
-    return this.http.delete(`${this.baseUrl}`+id )
+    return this.http.delete(`${this.baseUrl}`+id ).pipe(
+      tap(()=>{
+        this.Refreshrequired.next();
+      })
+    );
   }
 
-  getItem() {
-    return this.aufgabeList.asObservable();
-  }
 
 }

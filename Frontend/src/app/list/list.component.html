@@ -30,7 +30,7 @@
     </div>
   </div-->
   <div class="card-group">
-    <div *ngFor="let task of aufgabeList; let i = index">
+    <div *ngFor="let task of aufgabeList ">
       <div class="card m-2 shadow p-3 mb-5" style="width: 18rem">
         <div class="card-body">
           <h5><span class="badge bg-primary rounded-pill">erstellt {{task.date | date: 'MMM d, y'}}</span></h5>
@@ -39,10 +39,11 @@
             <span *ngIf="task.priority === listOfPriorities[0]" class="badge bg-warning rounded-pill">{{task.priority}}</span>
             <span *ngIf="task.priority === listOfPriorities[1]" class="badge bg-danger rounded-pill">{{task.priority}}</span>
             <span *ngIf="task.priority === listOfPriorities[2]" class="badge bg-success rounded-pill">{{task.priority}}</span>
-          </h6-->s
+          </h6-->
           <div class="container">
             <div class="row d-flex">
               <div class="col">
+                <button  class="btn btn-outline-info" (click)="deleteAufgabe(task.id)">Delete</button>
                 <button [hidden]="task.done" class="btn btn-outline-success" >Fertig</button>
                 <button [hidden]="task.done" class="btn btn-outline-danger" >Nicht fertig</button>
                 </div>

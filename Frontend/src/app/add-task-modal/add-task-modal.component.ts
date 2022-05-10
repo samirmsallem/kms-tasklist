@@ -12,7 +12,7 @@ import {Aufgabe} from "../aufgabe";
 export class AddTaskModalComponent {
 
   title: string;
-  aufgabe: any;
+  aufgabe: Aufgabe = new Aufgabe();
 
 
   constructor(public dataService: DataService, public activeModal: NgbActiveModal,public aufgabeService:AufgabeService) {
@@ -20,10 +20,10 @@ export class AddTaskModalComponent {
   }
 
   save(title : string) {
-    this.aufgabe = new Aufgabe(title ,false,new Date());
+    this.aufgabe = new Aufgabe();
     this.aufgabe.title = title;
     this.aufgabeService.createAufgabe(this.aufgabe).subscribe(result =>{
-      this.aufgabe = result;
+     console.log(result);
     })
 
     if (this.title.trim().length > 0) {

@@ -12,7 +12,7 @@ import {Observable,of}  from 'rxjs';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  aufgabeList : Aufgabe[] | undefined;
+  aufgabeList : Aufgabe[] = [];
   aufgabeasobservable:any;
 
   public listOfPriorities: Priority[] = [Priority.NORMAL, Priority.HIGH, Priority.LOW];
@@ -43,8 +43,10 @@ export class ListComponent implements OnInit {
   }
 
   deleteAufgabe(id:number){
-    this.aufgabeService.deleteAufgabe(id).toPromise().then((res:any) =>{
+    console.log(id);
+    this.aufgabeService.deleteAufgabe(id).subscribe((res) =>{
       console.log(res)
+      this.getAufgabeList();
     })
   }
 

@@ -1,12 +1,7 @@
 export class Aufgabe {
   id: number =0;
-  title: string | undefined;
-  done: boolean | undefined;
-  date: Date | undefined;
+  title: string ="";
+  done: boolean = false;
+  date: Date = new Date();
 
-  constructor(title:string,done:boolean,date:Date) {
-    this.title =title;
-    this.done=done;
-    this.date=date;
-  }
 }
