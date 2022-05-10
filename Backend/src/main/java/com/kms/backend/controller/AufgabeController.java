@@ -40,7 +40,7 @@ public class AufgabeController {
     //update aufgabe
     @PutMapping("/{id}")
     public ResponseEntity<Aufgabe> updateAufgabe(@PathVariable Long id, @RequestBody Aufgabe aufgabe) {
-        return ResponseEntity.ok(aufgabeService.updateProduit(aufgabe, id));
+        return ResponseEntity.ok(aufgabeService.updateAufgabe(aufgabe, id));
     }
 
     //delete Aufgabe rest api

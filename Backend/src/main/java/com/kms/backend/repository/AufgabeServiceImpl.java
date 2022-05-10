@@ -19,7 +19,7 @@ public class AufgabeServiceImpl implements AufgabeService {
     }
 
     @Override
-    public Aufgabe updateProduit(Aufgabe aufgabe, Long id) {
+    public Aufgabe updateAufgabe(Aufgabe aufgabe, Long id) {
         Aufgabe updateAufgabe = aufgabeRepository.findById(id).get();
         updateAufgabe.setTitle(aufgabe.getTitle());
         updateAufgabe.setDone(aufgabe.isDone());
