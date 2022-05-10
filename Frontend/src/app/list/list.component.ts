@@ -4,6 +4,7 @@ import {Priority} from "../priority";
 import {Aufgabe} from "../aufgabe";
 import {AufgabeService} from "../aufgabe.service";
 import {Observable,of}  from 'rxjs';
+import {ModalDismissReasons, NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 
 @Component({
@@ -13,11 +14,13 @@ import {Observable,of}  from 'rxjs';
 })
 export class ListComponent implements OnInit {
   aufgabeList : Aufgabe[] = [];
+  aufgabeEdit: Aufgabe = new Aufgabe();
+  title: string = "";
   aufgabeasobservable:any;
 
   public listOfPriorities: Priority[] = [Priority.NORMAL, Priority.HIGH, Priority.LOW];
 
-  constructor(public dataService: DataService,public aufgabeService:AufgabeService) {
+  constructor(public dataService: DataService,public aufgabeService:AufgabeService,private modalService: NgbModal,public activeModal: NgbActiveModal) {
   }
 
   ngOnInit(): void {
@@ -29,6 +32,26 @@ export class ListComponent implements OnInit {
 
   }
 
+  closeResult: string | undefined;
+
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
   getAufgabeList(){
     this.aufgabeService.getAufgabeList().subscribe((res) =>{
       this.aufgabeList = res;
@@ -36,9 +59,11 @@ export class ListComponent implements OnInit {
     return this.aufgabeList;
   }
 
-  editAufgabe(id:number,aufgabe: Aufgabe){
-    this.aufgabeService.updateAufgabe(id,aufgabe).toPromise().then((res:any)=>{
+  editAufgabe(id:number,title: string){
+    this.aufgabeEdit.title=title;
+    this.aufgabeService.updateAufgabe(id,this.aufgabeEdit).subscribe((res) =>{
       console.log(res)
+      this.getAufgabeList();
     })
   }
 
@@ -46,7 +71,9 @@ export class ListComponent implements OnInit {
     console.log(id);
     this.aufgabeService.deleteAufgabe(id).subscribe((res) =>{
       console.log(res)
+      this.modalService.dismissAll();
       this.getAufgabeList();
+
     })
   }
 

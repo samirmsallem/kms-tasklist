@@ -27,7 +27,11 @@ export class AufgabeService {
 
   updateAufgabe(id: number,aufgabe: Aufgabe):Observable<Object>{
 
-    return this.http.put(`${this.baseUrl}${id}`,aufgabe);
+    return this.http.put(`${this.baseUrl}${id}`,aufgabe).pipe(
+      tap(()=>{
+        this.Refreshrequired.next();
+      })
+    );
   }
 
   createAufgabe(aufgabe:Aufgabe):Observable<Object>{

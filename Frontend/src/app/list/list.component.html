@@ -44,6 +44,7 @@
             <div class="row d-flex">
               <div class="col">
                 <button  class="btn btn-outline-info" (click)="deleteAufgabe(task.id)">Delete</button>
+                <button  class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">Update</button><p></p>
                 <button [hidden]="task.done" class="btn btn-outline-success" >Fertig</button>
                 <button [hidden]="task.done" class="btn btn-outline-danger" >Nicht fertig</button>
                 </div>
@@ -56,6 +57,22 @@
           </div>
         </div>
       </div>
+      <ng-template #mymodal let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Update Aufgabe</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p> Title</p>
+          <input  type="text" class="form-control" name="taskTitleInput" [(ngModel)]="title" >
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="editAufgabe(task.id,title)">Ok</button>
+        </div>
+      </ng-template>
     </div>
   </div>
+
 </div>
