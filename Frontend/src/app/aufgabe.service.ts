@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, Subject, tap} from "rxjs";
 import {Aufgabe} from "./aufgabe";
 
-
 @Injectable({
   providedIn: 'root'
 })
