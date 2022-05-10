@@ -3,6 +3,7 @@ import {DataService} from "../data.service";
 import {Priority} from "../priority";
 import {Aufgabe} from "../aufgabe";
 import {AufgabeService} from "../aufgabe.service";
+import {Observable,of}  from 'rxjs';
 
 
 @Component({
@@ -12,6 +13,7 @@ import {AufgabeService} from "../aufgabe.service";
 })
 export class ListComponent implements OnInit {
   aufgabeList : Aufgabe[] | undefined;
+  aufgabeasobservable:any;
 
   public listOfPriorities: Priority[] = [Priority.NORMAL, Priority.HIGH, Priority.LOW];
 
@@ -19,13 +21,33 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAufgabeList()
+    this.aufgabeList = this.getAufgabeList();
+    this.aufgabeasobservable = of(this.aufgabeList);
+    this.aufgabeService.Refreshrequired.subscribe(res =>{
+      this.getAufgabeList();
+    })
+
+    new Observable(item =>{
+        setTimeout(()=>{
+          item.next('In Progres')
+        },4000);
+      setTimeout(()=>{
+        item.next('pending')
+      },6000);
+      setTimeout(()=>{
+        item.next('Complite')
+      },8000);
+    }).subscribe(result =>{
+      console.log(result);
+    })
+    this.getAufgabeList();
   }
 
   getAufgabeList(){
-    this.aufgabeService.getAufgabeList().toPromise().then((res:any) =>{
+    this.aufgabeService.getAufgabeList().subscribe((res) =>{
       this.aufgabeList = res;
     })
+    return this.aufgabeList;
   }
 
   editAufgabe(id:number,aufgabe: Aufgabe){
