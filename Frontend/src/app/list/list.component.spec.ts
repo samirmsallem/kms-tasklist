@@ -2,10 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ListComponent } from './list.component';
 
 import {HttpClientModule} from '@angular/common/http';
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-//import {isArrayLike} from "rxjs/dist/types/internal/util/isArrayLike";
+import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import notEmpty = jasmine.notEmpty;
 import {Aufgabe} from "../aufgabe";
+import {AufgabeService} from "../aufgabe.service";
+// todo Cannot find module @services/api.service
+import { ApiService } from '@services/api.service';
+import {Type} from "@angular/core";
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -73,5 +76,75 @@ describe('ListComponent', () => {
 
     expect(component.getAufgabeList()).toBeTruthy()
 
+  });
+});
+
+describe('send res ', () => {
+  let fixture: ComponentFixture<AufgabeService>;
+  let app: AufgabeService;
+  let httpMock: HttpTestingController;
+
+  describe('send res', () => {
+    beforeEach(async () => {
+      TestBed.configureTestingModule({
+        imports: [
+          HttpClientTestingModule,
+        ],
+        declarations: [
+          AufgabeService,
+        ],
+        providers: [
+          ApiService,
+        ],
+      });
+
+      await TestBed.compileComponents();
+
+      fixture = TestBed.createComponent(AufgabeService);
+      app = fixture.componentInstance;
+      httpMock = fixture.debugElement.injector.get<HttpTestingController>(HttpTestingController as Type<HttpTestingController>);
+
+      fixture.detectChanges();
+    });
+
+    afterEach( () => {
+      httpMock.verify();
+    });
+
+    it('test http call',  () => {
+
+      const url = "http://localhost:8080/api/v1/aufgabe/"
+
+      const dummyAufgabe = [
+        {id: 0,
+          title: 'abc',
+          done: false,
+          date: 1
+        },
+      ];
+
+      const dummyAufgabe1 = [
+        {id: 1,
+          title: 'abc',
+          done: false,
+          date: 1
+        },
+      ];
+
+      const dummyList = [
+        {
+          dummyAufgabe,
+          dummyAufgabe1,
+        },
+      ];
+
+      app.getAufgabeList()
+      const req = httpMock.expectOne(`${url}`)
+      req.flush(dummyAufgabe);
+
+      expect(req.request.method).toBe('GET');
+      expect(app.aufgabeList).toEqual(dummyList); // todo arg not assign
+
+    });
   });
 });
