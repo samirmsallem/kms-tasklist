@@ -27,20 +27,6 @@ export class ListComponent implements OnInit {
       this.getAufgabeList();
     })
 
-    new Observable(item =>{
-        setTimeout(()=>{
-          item.next('In Progres')
-        },4000);
-      setTimeout(()=>{
-        item.next('pending')
-      },6000);
-      setTimeout(()=>{
-        item.next('Complite')
-      },8000);
-    }).subscribe(result =>{
-      console.log(result);
-    })
-    this.getAufgabeList();
   }
 
   getAufgabeList(){
