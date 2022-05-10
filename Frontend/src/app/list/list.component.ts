@@ -20,6 +20,7 @@ export class ListComponent implements OnInit {
 
   public listOfPriorities: Priority[] = [Priority.NORMAL, Priority.HIGH, Priority.LOW];
 
+
   constructor(public dataService: DataService,public aufgabeService:AufgabeService,private modalService: NgbModal,public activeModal: NgbActiveModal) {
   }
 
@@ -71,15 +72,8 @@ export class ListComponent implements OnInit {
     console.log(id);
     this.aufgabeService.deleteAufgabe(id).subscribe((res) =>{
       console.log(res)
-      this.modalService.dismissAll();
       this.getAufgabeList();
 
-    })
-  }
-
-  newAufgabe(aufgabe:Aufgabe){
-    this.aufgabeService.createAufgabe(aufgabe).toPromise().then((res:any) => {
-      console.log(res)
     })
   }
 
