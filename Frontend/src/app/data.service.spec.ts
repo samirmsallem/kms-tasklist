@@ -30,4 +30,15 @@ describe('DataService', () => {
     service.setPriority(service.taskList[0], Priority.LOW);
     expect(service.taskList[0].priority).toEqual(Priority.LOW);
   });
+
+  it('should change task status to done', () => {
+    service.done(service.taskList[0]);
+    expect(service.taskList[0].done).toEqual(true);
+  });
+
+  it('should change task status to undone', () => {
+    service.undone(service.taskList[0]);
+    expect(service.taskList[0].done).toEqual(false);
+  });
+
 });
