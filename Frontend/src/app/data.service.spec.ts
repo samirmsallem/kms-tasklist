@@ -41,4 +41,8 @@ describe('DataService', () => {
     expect(service.taskList[0].done).toEqual(false);
   });
 
+  it('should get Index of first element', () => {
+    expect(service.taskList[0]).toEqual(service.taskList[service.getIndex(service.taskList[0])]);
+  });
+
 });
