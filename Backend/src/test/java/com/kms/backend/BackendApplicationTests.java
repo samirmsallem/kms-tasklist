@@ -6,6 +6,7 @@ import com.kms.backend.service.AufgabeService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -95,31 +96,42 @@ class BackendApplicationTests {
 
 }
 
-    // Failed to load ApplicationContext
-//    @DataJpaTest
-//    class AufgabeRepositoryTest {
-//        @Autowired
-//        private AufgabeRepository aufgabeRepositoryTest;
-//
-//        @MockBean
-//        AufgabeService aufgabeService;
-//
-//        @AfterEach
-//        void tearDown() {
-//            aufgabeRepositoryTest.deleteAll();
-//        }
-//
-//        @Test
-//        void itShouldCheckWhenAufgabeExists() {
-//            Aufgabe aufgabe = new Aufgabe("test1",true,new Date());
-//            aufgabeRepositoryTest.save(aufgabe);
-//
-//            assertThat(aufgabeRepositoryTest.existsById(1L)).isTrue();
-//        }
-//
-//        @Test
-//        void itShouldCheckWhenAufgabeNotExists() {
-//            Aufgabe aufgabe = new Aufgabe("test1",true,new Date());
-//            assertThat(aufgabeRepositoryTest.existsById(1L)).isFalse();
-//        }
-//    }
+    // test Repository
+    @DataJpaTest
+    @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+    class AufgabeRepositoryTest {
+        @Autowired
+        private AufgabeRepository aufgabeRepositoryTest;
+
+        @MockBean
+        AufgabeService aufgabeService;
+
+        @AfterEach
+        void tearDown() {
+            aufgabeRepositoryTest.deleteAll();
+        }
+
+        // not empty
+        @Test
+        void itRepoShouldToBeEmpty() {
+            assertThat(aufgabeRepositoryTest.findAll().size() == 0).isTrue();
+
+        }
+
+        @Test
+        void itShouldCheckWhenAufgabeExists() {
+            Aufgabe aufgabe = new Aufgabe("test1",true,new Date());
+            aufgabeRepositoryTest.save(aufgabe);
+
+            assertThat(aufgabeRepositoryTest.existsById(1L)).isTrue();
+        }
+
+        //
+        @Test
+        void itShouldCheckWhenAufgabeNotExists() {
+            Aufgabe aufgabe = new Aufgabe("test1",false, new Date());
+            aufgabe.setId(10L);
+            System.out.println(aufgabeRepositoryTest.findAll().size());
+            assertThat(aufgabeRepositoryTest.existsById(aufgabe.getId())).isFalse();
+        }
+    }
