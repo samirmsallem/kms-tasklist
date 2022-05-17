@@ -5,12 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    paths: 
-      -Frontend/**
+#    paths: 
+#      -Frontend/**
     branches: [ master, dev/* ]
   pull_request:
-    paths:
-      - Frontend/**
+ #   paths:
+ #     - Frontend/**
     branches: [ master, dev/* ]
     
 #on:
