@@ -5,8 +5,12 @@ name: Node.js CI
 
 on:
   push:
+    paths: 
+      -Frontend/**
     branches: [ master, dev/* ]
   pull_request:
+    paths:
+      - Frontend/**
     branches: [ master, dev/* ]
     
 #on:
@@ -19,7 +23,7 @@ jobs:
  
     strategy:
       matrix:
-        node-version: [8.x, 12.x, 14.x, 16.x]
+        node-version: [14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -28,8 +32,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-#        cache: 'npm'
-#        cache-dependency-path: Frontend/package-lock.json
+        cache: 'npm'
+        cache-dependency-path: Frontend/package.json
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
