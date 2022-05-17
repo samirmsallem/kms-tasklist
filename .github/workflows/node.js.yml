@@ -15,14 +15,12 @@ on:
     
 #on:
 #  push:
-#    branches: [ main ]
+#    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Frontend
+ 
  
     strategy:
       matrix:
@@ -36,7 +34,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-#        cache-dependency-path: Frontend
+        cache-dependency-path: Frontend/package-lock.json
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
