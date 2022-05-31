@@ -40,7 +40,7 @@ jobs:
         npm run build --if-present
     - run: |
         cd ./Frontend/
-        npm test
+        npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
     - run: |
         cd ./Frontend/
         npm run lint --if-present
