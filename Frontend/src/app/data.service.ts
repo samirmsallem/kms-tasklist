@@ -49,5 +49,9 @@ export class DataService {
     return this.taskList.findIndex(correctTask => correctTask === task);
   }
 
+  remove(task: TaskEntry){
+    this.taskList.splice(this.getIndex(task), 1);
+  }
+
 
 }
