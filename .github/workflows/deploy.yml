@@ -8,10 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: Frontend
     steps:
       - uses: actions/checkout@v1
       - uses: sterlingwes/gh-pages-deploy-action@v1.1
         with:
-          source-directory: Frontend
           access-token: ${{ secrets.ACCESS_TOKEN }}
+          source-directory: docs
           build-command: npm run build
