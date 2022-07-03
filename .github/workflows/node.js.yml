@@ -20,7 +20,7 @@ jobs:
             npm ci
             npm install -g @angular/cli
             ng build
-            cp -r /docs ../docs
+            cp -r docs/ ../docs/
       - name: Run Frontend unit tests
         run: |
           cd Frontend
