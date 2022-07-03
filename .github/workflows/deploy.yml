@@ -10,17 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Build for Deployment
-        run: |
-          cd Frontend
-          npm config set legacy-peer-deps true
-          npm ci
-          npm install -g @angular/cli
-          ng build
-          cp -r docs/ ../docs/
       - uses: sterlingwes/gh-pages-deploy-action@v1.1
         with:
-          working-directory: Frontend
           access-token: ${{ secrets.ACCESS_TOKEN }}
           build-command: npm run build
-          source-directory: docs
+          source-directory: Frontend
