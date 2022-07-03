@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build for Deployment
-          run: |
+        run: |
             cd Frontend
             npm config set legacy-peer-deps true
             npm ci
