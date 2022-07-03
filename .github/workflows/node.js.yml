@@ -1,47 +1,30 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: Node.js CI
-
-on:
+name: Execute frontend tests and build for deployment
+'on':
   push:
-#    paths: 
-#      -Frontend/**
-    branches: [ master, dev/* ]
+    branches:
+      - master
   pull_request:
- #   paths:
- #     - Frontend/**
-    branches: [ master, dev/* ]
-    
-#on:
-#  push:
-#    branches: [ master ]
-
+    types: [ opened, synchronize, reopened ]
 jobs:
-  build:
+  unit-tests:
     runs-on: ubuntu-latest
- 
- 
-    strategy:
-      matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v3
-    - run: cd ./Frontend/
-    - run: npm install
-      working-directory: Frontend
-    - run: |
-        cd ./Frontend/
-        npm ci
-    - run: |
-        cd ./Frontend/
-        npm run build --if-present
-    - run: |
-        cd ./Frontend/
-        npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-    - run: |
-        cd ./Frontend/
-        npm run lint --if-present
-
+      - name: Check out main
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+      - name: Build for Deployment
+          run: |
+            cd Frontend
+            npm config set legacy-peer-deps true
+            npm ci
+            npm install -g @angular/cli
+            ng build
+            cp -r /docs ../docs
+      - name: Run Frontend unit tests
+        run: |
+          cd Frontend
+          npm config set legacy-peer-deps true
+          npm ci
+          npm install -g @angular/cli
+          ng test --browsers=ChromeHeadless --watch=false
