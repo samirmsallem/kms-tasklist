@@ -20,5 +20,7 @@ jobs:
           cp -r docs/ ../docs/
       - uses: sterlingwes/gh-pages-deploy-action@v1.1
         with:
+          working-directory: Frontend
           access-token: ${{ secrets.ACCESS_TOKEN }}
+          build-command: npm run build
           source-directory: docs
