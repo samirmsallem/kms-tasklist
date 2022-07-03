@@ -4,6 +4,7 @@ import { AddTaskModalComponent } from './add-task-modal.component';
 import {DataService} from "../data.service";
 import {NgbActiveModal, NgbModal, NgbModalRef, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 
 
@@ -22,7 +23,8 @@ describe('AddTaskModalComponent', () => {
       declarations: [ AddTaskModalComponent ],
       imports: [
         NgbModule,
-        FormsModule
+        FormsModule,
+        HttpClientTestingModule
       ],
       providers: [
         DataService,

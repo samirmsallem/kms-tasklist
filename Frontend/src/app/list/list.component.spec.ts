@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListComponent } from './list.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -10,7 +11,8 @@ describe('ListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListComponent ],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
   });
