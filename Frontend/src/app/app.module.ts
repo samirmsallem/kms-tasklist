@@ -9,16 +9,6 @@ import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 
-const appRoutes: Routes = [
-  {
-    path: "",
-    pathMatch: "full",
-    redirectTo: "list"
-  },
-  {path:"list",component:ListComponent },
-];
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +19,6 @@ const appRoutes: Routes = [
     BrowserModule,
     NgbModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
     FormsModule
   ],
   providers: [
