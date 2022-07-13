@@ -1,4 +1,4 @@
-# KMS Taskliste
+# KMS Taskliste Gruppe 2
 
 ## Teammitglieder:
 
