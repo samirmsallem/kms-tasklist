@@ -13,8 +13,12 @@ jobs:
 
       - name: Install and build
         run: |
+          cd Frontend
+          npm config set legacy-peer-deps true
           npm ci
-          npm run build
+          npm install -g @angular/cli
+          ng build
+          cp -r docs/ ../docs/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

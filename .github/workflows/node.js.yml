@@ -13,14 +13,13 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 0
-      - name: Build for Deployment
+      - name: Build
         run: |
             cd Frontend
             npm config set legacy-peer-deps true
             npm ci
             npm install -g @angular/cli
             ng build
-            cp -r docs/ ../docs/
       - name: Run Frontend unit tests
         run: |
           cd Frontend
