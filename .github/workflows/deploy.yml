@@ -1,17 +1,22 @@
 name: Github Pages Deployment
 
-on:
-  push:
-    branches:
-      - deployment
-
+on: [push]
+permissions:
+  contents: write
 jobs:
-  build:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: sterlingwes/gh-pages-deploy-action@v1.1
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
-          source-directory: Frontend/docs
-          build-command: npm run build
+          folder: Frontend/docs
