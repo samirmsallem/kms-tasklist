@@ -1,25 +1,24 @@
+<br>
 <div class="container">
-  <h2 class = "text-center">Aufgabenboard</h2>
-  <button class="btn btn-outline-primary" (click)="this.dataService.openAddModal()">Aufgabe hinzufügen</button>
-  <!--div class="card-group">
-    <div *ngFor="let task of dataService.taskList; let i = index">
-      <div class="card m-2 shadow p-3 mb-5" style="width: 18rem">
+  <div class="text-center">
+    <button class="btn btn-outline-primary" (click)="this.dataService.openAddModal()">Aufgabe hinzufügen</button>
+  </div>
+  <h3>Ausstehend:</h3>
+  <div class="card-group col-12">
+    <div *ngFor="let task of getTaskList(); let i = index">
+      <div class="card m-2 shadow p-3 mb-5" *ngIf="!task.done">
         <div class="card-body">
-          <h5><span class="badge bg-primary rounded-pill">erstellt {{task.creationDate.toLocaleDateString()}}</span></h5>
-          <h5 class="card-title">{{task.title}}</h5>
+          <h5 class="card-title">{{task.title}} <span class="badge bg-primary rounded-pill">{{task.creationDate.toLocaleDateString()}}</span></h5>
           <h6>
-            <span *ngIf="task.priority === listOfPriorities[0]" class="badge bg-warning rounded-pill">{{task.priority}}</span>
-            <span *ngIf="task.priority === listOfPriorities[1]" class="badge bg-danger rounded-pill">{{task.priority}}</span>
+            <span *ngIf="task.priority === listOfPriorities[0]" class="badge bg-danger rounded-pill">{{task.priority}}</span>
+            <span *ngIf="task.priority === listOfPriorities[1]" class="badge bg-warning rounded-pill">{{task.priority}}</span>
             <span *ngIf="task.priority === listOfPriorities[2]" class="badge bg-success rounded-pill">{{task.priority}}</span>
           </h6>
           <div class="container">
             <div class="row d-flex">
-              <div class="col">
-                <button [hidden]="task.done" class="btn btn-outline-success" (click)="dataService.done(task)">Fertig</button>
-                <button [hidden]="!task.done" class="btn btn-outline-danger" (click)="dataService.undone(task)">Nicht fertig</button>
-                </div>
-              <div class="col">
-                <select class="form-select" aria-label="Priorität" ngModel (ngModelChange)="dataService.setPriority(task, $event)">
+              <div class="button-group">
+                <button class="btn btn-outline-success" (click)="dataService.done(task)">Fertig</button>
+                <select class="form-select" placeholder="Priorität" aria-label="Priorität" ngModel (ngModelChange)="dataService.setPriority(task, $event)">
                   <option *ngFor="let priority of listOfPriorities">{{priority}}</option>
                 </select>
               </div>
@@ -28,51 +27,28 @@
         </div>
       </div>
     </div>
-  </div-->
+  </div>
+  <h3>Abgeschlossen:</h3>
   <div class="card-group">
-    <div *ngFor="let task of aufgabeList ">
-      <div class="card m-2 shadow p-3 mb-5" style="width: 18rem">
+    <div *ngFor="let task of getTaskList(); let i = index">
+      <div class="card m-2 shadow p-3 mb-5" *ngIf="task.done">
         <div class="card-body">
-          <h5><span class="badge bg-primary rounded-pill">erstellt {{task.date | date: 'MMM d, y'}}</span></h5>
-          <h5 class="card-title">{{task.title}}</h5>
-          <!--h6>
+          <h5 class="card-title">{{task.title}} <span class="badge bg-success rounded-pill">{{task.creationDate.toLocaleDateString()}}</span></h5>
+          <h6>
             <span *ngIf="task.priority === listOfPriorities[0]" class="badge bg-warning rounded-pill">{{task.priority}}</span>
             <span *ngIf="task.priority === listOfPriorities[1]" class="badge bg-danger rounded-pill">{{task.priority}}</span>
             <span *ngIf="task.priority === listOfPriorities[2]" class="badge bg-success rounded-pill">{{task.priority}}</span>
-          </h6-->
+          </h6>
           <div class="container">
             <div class="row d-flex">
-              <div class="col">
-                <button  class="btn btn-outline-info" (click)="deleteAufgabe(task.id)">Delete</button>
-                <button  class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">Update</button><p></p>
-                <button [hidden]="task.done" class="btn btn-outline-success" >Fertig</button>
-                <button [hidden]="task.done" class="btn btn-outline-danger" >Nicht fertig</button>
-                </div>
-              <!--div class="col">
-                <select class="form-select" aria-label="Priorität" ngModel (ngModelChange)="dataService.setPriority(task, $event)">
-                  <option *ngFor="let priority of listOfPriorities">{{priority}}</option>
-                </select>
-              </div-->
+              <div class="button-group">
+                <button class="btn btn-outline-danger" (click)="dataService.undone(task)">Nicht fertig</button>
+                <button class="btn btn-outline-danger" (click)="dataService.remove(task)">Löschen</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <ng-template #mymodal let-modal [hidden]="IsmodelShow">
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Update Aufgabe</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p> Title</p>
-          <input  type="text" class="form-control" name="taskTitleInput" [(ngModel)]="title" >
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="editAufgabe(task.id,title)">Ok</button>
-        </div>
-      </ng-template>
     </div>
   </div>
-
 </div>

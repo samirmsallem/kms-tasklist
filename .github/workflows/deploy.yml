@@ -1,0 +1,26 @@
+name: Github Pages Deployment
+
+on: [push]
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install and build frontend
+        run: |
+          cd Frontend
+          npm config set legacy-peer-deps true
+          npm ci
+          npm install -g @angular/cli
+          ng build --base-href=/kms-tasklist/
+          cp -r docs/ ../docs/
+
+      - name: Deploy Frontend to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs

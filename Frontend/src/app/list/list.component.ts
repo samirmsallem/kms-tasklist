@@ -3,6 +3,7 @@ import {DataService} from "../data.service";
 import {Priority} from "../priority";
 import {Aufgabe} from "../aufgabe";
 import {AufgabeService} from "../aufgabe.service";
+import {TaskEntry} from "../task";
 import {Observable,of}  from 'rxjs';
 import {ModalDismissReasons, NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
@@ -18,7 +19,7 @@ export class ListComponent implements OnInit {
   title: string = "";
   aufgabeasobservable:any;
 
-  public listOfPriorities: Priority[] = [Priority.NORMAL, Priority.HIGH, Priority.LOW];
+  public listOfPriorities: Priority[] = [Priority.HIGH, Priority.NORMAL, Priority.LOW];
 
 
   constructor(public dataService: DataService,public aufgabeService:AufgabeService,private modalService: NgbModal,public activeModal: NgbActiveModal) {
@@ -51,6 +52,10 @@ export class ListComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  getTaskList() : TaskEntry[] {
+    return this.dataService.taskList.sort((a, b) => ((this.listOfPriorities.indexOf(a.priority, 0) > this.listOfPriorities.indexOf(b.priority, 0)) ? 1 : -1))
   }
 
   getAufgabeList(){
