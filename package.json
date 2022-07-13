@@ -1,7 +1,0 @@
-{
-  "name": "Aufgabenliste",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "cd Frontend && npm ci && npm run build"
-  }
-}
